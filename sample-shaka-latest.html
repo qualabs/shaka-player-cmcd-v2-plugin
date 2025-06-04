@@ -9,6 +9,12 @@
         const manifestUri =
             'https://livesim2.dashif.org/livesim2/chunkdur_1/ato_7/testpic4_8s/Manifest300.mpd';
 
+        function uuidv4() {
+            //not crypographically secure, but good enough for IDs
+            return "10000000-1000-4000-8000-100000000000".replace(/[018]/g, c =>
+            (+c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> +c / 4).toString(16));
+        }
+
         function initApp() {
             // Install built-in polyfills to patch browser incompatibilities.
             shaka.polyfill.installAll();
@@ -32,7 +38,7 @@
                 cmcd: {
                     version: 2,
                     enabled: true,
-                    sessionId: 'your-session-id-if-static',
+                    sessionId: uuidv4(),
                     useHeaders: false,
                 }
             });
